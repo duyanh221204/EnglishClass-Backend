@@ -16,8 +16,8 @@ class InvalidatedTokenRepository:
     def __init__(self, db: Session):
         self.db = db
 
-    def find_by_token_id(self, token_id: str) -> InvalidatedToken | None:
-        return self.db.query(InvalidatedToken).filter(InvalidatedToken.id == token_id).first()
+    def find_by_id(self, jwt_id: str) -> InvalidatedToken | None:
+        return self.db.query(InvalidatedToken).filter(InvalidatedToken.id == jwt_id).first()
 
     def save(self, invalidated_token: InvalidatedToken) -> None:
         self.db.add(invalidated_token)
