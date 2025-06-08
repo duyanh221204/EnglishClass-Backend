@@ -1,11 +1,14 @@
+from typing import Annotated
+
 from fastapi import Depends
-from sqlalchemy.orm import Session
+from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from configuration.database import get_db
 from model import InvalidatedToken
 
 
-def get_invalidated_token_repo(db=Depends(get_db)):
+def get_invalidated_token_repo(db: Annotated[AsyncSession, Depends(get_db)]):
     try:
         yield InvalidatedTokenRepository(db)
     finally:
@@ -13,13 +16,16 @@ def get_invalidated_token_repo(db=Depends(get_db)):
 
 
 class InvalidatedTokenRepository:
-    def __init__(self, db: Session):
+    def __init__(self, db: AsyncSession):
         self.db = db
 
-    def find_by_id(self, jwt_id: str) -> InvalidatedToken | None:
-        return self.db.query(InvalidatedToken).filter(InvalidatedToken.id == jwt_id).first()
+    async def find_by_id(self, jwt_id: str) -> InvalidatedToken | None:
+        result = await self.db.execute(
+            select(InvalidatedToken).where(InvalidatedToken.id == jwt_id)
+        )
+        return result.scalar()
 
-    def save(self, invalidated_token: InvalidatedToken) -> None:
+    async def save(self, invalidated_token: InvalidatedToken) -> None:
         self.db.add(invalidated_token)
-        self.db.commit()
-        self.db.refresh(invalidated_token)
+        await self.db.commit()
+        await self.db.refresh(invalidated_token)
