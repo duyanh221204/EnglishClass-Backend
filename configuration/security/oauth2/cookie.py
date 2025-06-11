@@ -9,7 +9,6 @@ class OAuth2PasswordBearerCookie(OAuth2PasswordBearer):
         super().__init__(
             tokenUrl=token_url,
             scheme_name=scheme_name,
-            auto_error=False,
         )
         self.cookie_name = cookie_name
 
