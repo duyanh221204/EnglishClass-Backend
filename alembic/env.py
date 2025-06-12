@@ -1,3 +1,4 @@
+import logging
 from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config
@@ -25,6 +26,7 @@ config.set_main_option("sqlalchemy.url", SQLALCHEMY_DATABASE_URL)
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
 fileConfig(config.config_file_name)
+logging.getLogger("sqlalchemy.engine").setLevel(logging.DEBUG)
 
 # add your model's MetaData object here
 # for 'autogenerate' support
