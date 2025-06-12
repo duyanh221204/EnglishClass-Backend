@@ -20,10 +20,10 @@ class InvalidatedTokenRepository:
         self.db = db
 
     async def find_by_id(self, jwt_id: str) -> InvalidatedToken | None:
-        result = await self.db.execute(
+        jwt_db = await self.db.execute(
             select(InvalidatedToken).where(InvalidatedToken.id == jwt_id)
         )
-        return result.scalar()
+        return jwt_db.scalar()
 
     async def save(self, invalidated_token: InvalidatedToken) -> None:
         self.db.add(invalidated_token)
