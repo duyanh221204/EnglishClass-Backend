@@ -7,7 +7,7 @@ from starlette.responses import JSONResponse
 from exception.exception_raising import base_error, raise_exception
 
 
-def register_global_exception_handler(app: FastAPI):
+def add_global_exception_handler(app: FastAPI):
     @app.exception_handler(RequestValidationError)
     async def validation_exception_handler(_: Request, exception: RequestValidationError) -> JSONResponse:
         content = base_error(str(exception.errors()))

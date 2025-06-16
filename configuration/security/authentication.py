@@ -5,7 +5,7 @@ from fastapi import Depends
 from jose import jwt
 
 from configuration.security.oauth2.cookie import OAuth2PasswordBearerCookie
-from model import UserAuthentication
+from model import User
 from util.constant import Constant
 
 SECRET_KEY = Constant.SECRET_KEY
@@ -17,7 +17,7 @@ oauth2_scheme = OAuth2PasswordBearerCookie(token_url="/api/auth/login", cookie_n
 
 class AuthenticationConfig:
     @staticmethod
-    def create_access_token(user: UserAuthentication) -> str:
+    def create_access_token(user: User) -> str:
         to_encode = {
             "sub": str(user.id),
             "id": str(uuid4())
