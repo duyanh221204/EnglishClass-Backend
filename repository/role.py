@@ -20,10 +20,9 @@ class RoleRepository:
         self.db = db
 
     async def find_all(self) -> list[Role]:
-        result = await self.db.execute(select(Role))
-        return list(result.scalars().all())
+        roles = await self.db.execute(select(Role))
+        return list(roles.scalars().all())
 
-    async def save(self, role: Role) -> None:
-        self.db.add(role)
-        await self.db.commit()
-        await self.db.refresh(role)
+    async def save_all(self, roles: list[Role]) -> None:
+        self.db.add_all(roles)
+        await self.db.flush()

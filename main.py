@@ -1,11 +1,12 @@
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
-from exception.global_exception_handler import register_global_exception_handler
+from configuration.app_init import lifespan
+from exception.global_exception_handler import add_global_exception_handler
 
-app = FastAPI()
+app = FastAPI(lifespan=lifespan)
 
-register_global_exception_handler(app)
+add_global_exception_handler(app)
 
 app.add_middleware(
     CORSMiddleware,
