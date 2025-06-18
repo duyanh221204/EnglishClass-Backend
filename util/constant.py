@@ -22,6 +22,4 @@ class Constant:
     ADMIN_LAST_NAME = os.getenv("ADMIN_LAST_NAME")
     ADMIN_EMAIL = os.getenv("ADMIN_EMAIL")
     ADMIN_PHONE = os.getenv("ADMIN_PHONE")
-    ADMIN_DOB_DAY = os.getenv("ADMIN_DOB_DAY")
-    ADMIN_DOB_MONTH = os.getenv("ADMIN_DOB_MONTH")
-    ADMIN_DOB_YEAR = os.getenv("ADMIN_DOB_YEAR")
+    ADMIN_DOB = os.getenv("ADMIN_DOB")

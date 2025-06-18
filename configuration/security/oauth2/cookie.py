@@ -19,8 +19,7 @@ class OAuth2PasswordBearerCookie(OAuth2PasswordBearer):
         if not token or scheme.lower() != "bearer":
             raise HTTPException(
                 status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="Could not validate credentials",
-                headers={"WWW-Authenticate": "Bearer"},
+                detail="Could not validate credentials"
             )
 
         return token

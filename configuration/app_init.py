@@ -1,4 +1,5 @@
 from contextlib import asynccontextmanager
+from datetime import datetime
 
 from fastapi import FastAPI
 
@@ -30,9 +31,7 @@ async def lifespan(_: FastAPI):
                 last_name=Constant.ADMIN_LAST_NAME,
                 email=Constant.ADMIN_EMAIL,
                 phone=Constant.ADMIN_PHONE,
-                dob_day=int(Constant.ADMIN_DOB_DAY),
-                dob_month=int(Constant.ADMIN_DOB_MONTH),
-                dob_year=int(Constant.ADMIN_DOB_YEAR),
+                dob=datetime.strptime(Constant.ADMIN_DOB, "%d/%m/%Y").date(),
                 username=Constant.ADMIN_USERNAME,
                 password=Hashing.hash_password(Constant.ADMIN_PASSWORD),
             )
